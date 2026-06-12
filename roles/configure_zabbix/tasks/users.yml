@@ -8,3 +8,26 @@
     usrgrps:
       - "Zabbix administrators"
     state: present
+# Vytvoření nového uživatele - student
+- name: Create student user Jan Novak
+  community.zabbix.zabbix_user:
+    username: "jan.novak"
+    name: "Jan"
+    surname: "Novák"
+    passwd: "StudentPassword123!"
+    role_name: "User role"
+    usrgrps:
+      - "Users"
+    user_medias:
+      - mediatype: "Email"
+        sendto: "novakj00@skola.cz"
+        period: "1-7,00:00-24:00"
+        severity:
+          not_classified: false
+          information: false
+          warning: true
+          average: true
+          high: true
+          disaster: true
+        active: true
+    state: present

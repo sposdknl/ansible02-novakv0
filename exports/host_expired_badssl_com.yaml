@@ -1,0 +1,31 @@
+zabbix_export:
+  version: '7.0'
+  host_groups:
+    - uuid: a571c55d-bfeb-4ab3-ad65-8bce35b3e4ef
+      name: Web Certificate
+  hosts:
+    - host: expired.badssl.com
+      name: expired.badssl.com - SSL Certificate
+      status: ENABLED
+      interfaces:
+        - type: AGENT
+          ipaddress: ''
+          dns: expired.badssl.com
+          useip: NO
+          port: '10050'
+          main: YES
+      groups:
+        - name: Web Certificate
+      macros:
+        - macro: '{$CERT.WEBSITE.HOSTNAME}'
+          value: expired.badssl.com
+          description: Hostname for SSL certificate monitoring
+        - macro: '{$CERT.WEBSITE.PORT}'
+          value: '443'
+          description: HTTPS port for SSL certificate check
+      templates:
+        - name: Website certificate by Zabbix agent 2
+      tags: []
+      dashboards: []
+      httptests: []
+      inventory_mode: DISABLED
