@@ -1,11 +1,3 @@
-# Dokumentace splnění úkolů – Ansible 02
-
-**Autor:** Jan Novák  
-**Školní email:** novakj00@skola.cz  
-**Předmět:** Správa serverů – Ansible, Zabbix, Grafana
-
----
-
 ## Přehled provedených úprav
 
 ### Úkol 3 – Přidání hosta `expired.badssl.com` se šablonou SSL monitoringu
@@ -56,18 +48,18 @@ Do souboru byl přidán nový task, který vytváří hosta `expired.badssl.com`
 Do souboru byl přidán nový task pro vytvoření studentského uživatele:
 
 ```yaml
-- name: Create student user Jan Novak
+- name: Create student user Vojtech Novak
   community.zabbix.zabbix_user:
-    username: "jan.novak"
-    name: "Jan"
+    username: "vojtech.novak"
+    name: "Vojtěch"
     surname: "Novák"
-    passwd: "StudentPassword123!"
+    passwd: "Password123"
     role_name: "User role"
     usrgrps:
       - "Users"
     user_medias:
       - mediatype: "Email"
-        sendto: "novakj00@skola.cz"
+        sendto: "novak.vojtech@student.sposdk.cz"
         period: "1-7,00:00-24:00"
         severity:
           not_classified: false
@@ -83,9 +75,9 @@ Do souboru byl přidán nový task pro vytvoření studentského uživatele:
 **Parametry uživatele:**
 | Parametr | Hodnota |
 |----------|---------|
-| Username | `jan.novak` |
-| Jméno | Jan Novák |
-| Email | novakj00@skola.cz |
+| Username | `vojtech.novak` |
+| Jméno | Vojtěch Novák |
+| Email | novak.vojtech@student.sposdk.cz |
 | Role | User role |
 | Skupina | Users |
 | Notifikace | Warning, Average, High, Disaster |
@@ -120,10 +112,10 @@ sudo ansible-playbook configure_grafana_server.yml
 ### 3. Ověření výsledků v Zabbix GUI
 
 **Kontrola hostů:**  
-`Configuration → Hosts` → Ověřte přítomnost `expired.badssl.com`
+`Configuration → Hosts` → přítomnost `expired.badssl.com`
 
 **Kontrola uživatelů:**  
-`Administration → Users` → Ověřte přítomnost `jan.novak`
+`Administration → Users` → přítomnost `vojtech.novak`
 
 **Audit Log:**  
 `Reports → Audit log` → filtr dle časového rozsahu ukazuje všechny změny provedené Ansible přes API
@@ -144,16 +136,10 @@ ansible02-novakv0/
 │   └── configure_zabbix/
 │       └── tasks/
 │           ├── hosts.yml        ← UPRAVENO: přidán expired.badssl.com
-│           └── users.yml        ← UPRAVENO: přidán jan.novak
+│           └── users.yml        ← UPRAVENO: přidán vojtech.novak
 ├── exports/
 │   └── host_expired_badssl_com.yaml  ← NOVÝ: export hosta ve formátu YAML
 └── ZADANI_DOKUMENTACE.md        ← NOVÝ: tato dokumentace
 ```
 
 ---
-
-## Poznámky
-
-- Šablona `Website certificate by Zabbix agent 2` je součástí výchozí instalace Zabbix 7.0 a nevyžaduje ruční import.
-- Host `expired.badssl.com` záměrně obsahuje expirovaný certifikát – slouží jako testovací případ pro ověření, že monitoring SSL funguje správně a správně hlásí chyby.
-- Uživatel `jan.novak` má roli `User role` (pouze čtení), nikoli administrátorská práva.

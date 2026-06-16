@@ -9,18 +9,18 @@
       - "Zabbix administrators"
     state: present
 # Vytvoření nového uživatele - student
-- name: Create student user Jan Novak
+- name: Create student user Vojtech Novak
   community.zabbix.zabbix_user:
-    username: "jan.novak"
-    name: "Jan"
+    username: "vojtech.novak"
+    name: "Vojtěch"
     surname: "Novák"
-    passwd: "StudentPassword123!"
+    passwd: "Password123"
     role_name: "User role"
     usrgrps:
       - "Users"
     user_medias:
       - mediatype: "Email"
-        sendto: "novakj00@skola.cz"
+        sendto: "novak.vojtech@student.sposdk.cz"
         period: "1-7,00:00-24:00"
         severity:
           not_classified: false
